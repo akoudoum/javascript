@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>Earth Turn</title>
+    <script type="text/javascript">
+        var can, ctx;
+ 
+        function init() {
+            can = document.getElementById("can");
+            ctx = can.getContext("2d");
+		
+			var img = new Image();
+			var earth = new Image();
+			var mask = new Image();
+			var widthx= -182;
+			var widthh= -182 - 294;
+			
+			
+			mask.onload = function() {  
+				earth.onload = function() {
+					img.onload = function(){
+						
+						setInterval(function(){
+							ctx.clearRect(0, 0, ctx.width, ctx.height);
+							ctx.drawImage(mask, 0,0, 112,112); 
+							ctx.globalCompositeOperation = 'source-atop';
+							ctx.drawImage(img, widthx,0); 
+							ctx.drawImage(earth, widthh, 0);
+							widthx++;
+							widthh++;
+							if(widthx >= 112)
+								widthx = -182 - 294;
+							if(widthh >= 112)
+								widthh = -182 - 294;
+						},100);
+					}
+					img.src = "3.png";
+				}
+				
+				earth.src = "3.png";
+			}
+			mask.src = "1.png";
+        }
+</script>
+</head>
+<body onload="init()" style="background-color:#000">
+    <canvas id="can" height="200" width="400" style="backgroundcolor:#fff">
+    </canvas>
+</body>
+</html>
